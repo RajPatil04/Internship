@@ -1,0 +1,5 @@
+{
+  "name": "Verification Status Display",
+  "description": "A simple and elegant web page that displays a 'Verified' status with a checkmark icon, demonstrating excellent UI/UX design with Tailwind CSS.",
+  "requestFramePermissions": []
+}
