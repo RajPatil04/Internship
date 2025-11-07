@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 interface CodeEntryProps {
-  onAuthenticated: () => void;
+  onAuthenticated: (name: string) => void;
 }
 
 export const CodeEntry: React.FC<CodeEntryProps> = ({ onAuthenticated }) => {
+  const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const correctCode = 'CSTR4504';
@@ -13,7 +14,7 @@ export const CodeEntry: React.FC<CodeEntryProps> = ({ onAuthenticated }) => {
     e.preventDefault();
     if (code.trim().toUpperCase() === correctCode) {
       setError('');
-      onAuthenticated();
+      onAuthenticated(name || 'User');
     } else {
       setError('Invalid code. Please try again.');
       setCode('');
@@ -25,11 +26,25 @@ export const CodeEntry: React.FC<CodeEntryProps> = ({ onAuthenticated }) => {
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 space-y-6 animate-fade-in">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Enter Access Code</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">Please enter the code to proceed.</p>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">Please enter your name and the code to proceed.</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="access-code" className="sr-only">
+            <label htmlFor="user-name" className="sr-only">
+              Your Name
+            </label>
+            <input
+              id="user-name"
+              name="user-name"
+              type="text"
+              autoComplete="name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 bg-white placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-lg transition-shadow duration-300 focus:shadow-lg mb-4"
+              placeholder="Your Name"
+            />
+             <label htmlFor="access-code" className="sr-only">
               Access Code
             </label>
             <input
